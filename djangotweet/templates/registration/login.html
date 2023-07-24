@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="border: 4px solid cornflowerblue; padding: 10px;">
+    {% if form.errors %}
+    <p>Try again</p>
+    
+    {% endif %}
+    {% if user.is_authenticateD %}
+        <h2>Welcome {{user.username}}</h2>
+    {% else %}
+        <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        
+        <div class="mb-3">
+            {{field.label_tag}}
+            {{field}}
+            
+        </div>
+        
+        {% endfor %}
+        
+        <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    {% endif %}
+    </div>
+{% endblock content %}
